@@ -1,0 +1,173 @@
+/* *{
+    padding: 0px;
+    margin: 0;
+    box-sizing: border-box;
+}
+.navbar{
+    background-color: black;
+    width: auto;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    
+}
+.searchbar{
+    margin-left: 140px;
+    width: 500px;
+
+}
+.search{
+    margin-left: 0px;
+    height: 20px;
+    width:50px
+}
+
+/*sidebar*/
+
+/* .sidebar{
+    width: 100px;
+    height: 100vh;
+    position: relative;
+    background-color: black;
+    top: 0;
+    left: 0;
+
+
+}
+
+
+.home{
+    height:100vh;
+    width:calc(100vw -100px);
+    background-color: yellow;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+    margin-left: 100px;
+
+} */ 
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar */
+.navbar {
+    background-color:  #202020;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: white;
+  
+}
+
+/* Search Bar */
+.searchbar {
+    width: 400px;
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+}
+
+.search {
+    height: 30px;
+    width: 60px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 600px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 100px;
+    height: 100vh;
+    position: fixed; /* Fixed for better UI */
+    top: 0;
+    left: 0;
+    background-color:  #202020;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+/* Home Section */
+.home {
+    margin-left: 100px;
+    height: 100vh;
+    width: calc(100vw - 100px);
+    background-color: rgba(0, 0, 0, 0.324);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 20px;
+    overflow-y: auto;
+    padding-top: 80px; /* Avoid overlap with navbar */
+    position:fixed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .searchbar {
+        width: 250px;
+    }
+
+    .search {
+        width: 50px;
+    }
+
+    .sidebar {
+        width: 80px;
+    }
+
+    .home {
+        margin-left: 80px;
+        width: calc(100vw - 80px);
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .searchbar {
+        width: 90%;
+    }
+
+    .sidebar {
+        width: 60px;
+    }
+
+    .home {
+        margin-left: 60px;
+        width: calc(100vw - 60px);
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+.v{
+    height:200px;
+    width:200px;
+    background-color: aqua;
+
+}
+.comment{
+    height: 100vh;
+    width: 530px;
+    background-color: black;
+    margin-top: 20px;;
+
+
+}

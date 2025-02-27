@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Grid</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .video-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-card:hover {
+            transform: scale(1.05);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .video-info {
+            padding: 10px;
+        }
+
+        .video-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .video-author,
+        .video-views {
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-grid" id="videoContainer"></div>
+
+    <script>
+        const API_KEY = "YOUR_API_KEY";  // Replace with your YouTube API Key
+        const SEARCH_QUERY = "JavaScript tutorials";  // Change search query as needed
+        const videoContainer = document.getElementById("videoContainer");
+
+        function fetchVideos() {
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${SEARCH_QUERY}&type=video&maxResults=6&key=${API_KEY}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch videos");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayVideos(data.items);
+                })
+                .catch(error => {
+                    console.error("Error fetching videos:", error);
+                    videoContainer.innerHTML = `<p style="color:red;">Failed to load videos. Please try again later.</p>`;
+                });
+        }
+
+        function displayVideos(videos) {
+            videoContainer.innerHTML = "";
+            videos.forEach(video => {
+                const videoId = video.id.videoId;
+                const title = video.snippet.title;
+                const channel = video.snippet.channelTitle;
+                const thumbnail = video.snippet.thumbnails.high.url;
+                const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+                const videoCard = document.createElement("div");
+                videoCard.classList.add("video-card");
+                videoCard.innerHTML = `
+                    <img src="${thumbnail}" alt="${title}" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">${title}</h3>
+                        <p class="video-author">${channel}</p>
+                    </div>
+                `;
+
+                videoCard.addEventListener("click", () => {
+                    window.open(videoUrl, "_blank");
+                });
+
+                videoContainer.appendChild(videoCard);
+            });
+        }
+
+        fetchVideos();
+    </script>
+
+</body>
+</html>

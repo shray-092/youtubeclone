@@ -1,0 +1,108 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Now Playing</h2>
+    <iframe id="videoFrame" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    <br>
+    
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Video</title>
+</head>
+<body>
+    <h1>Now Playing</h1>
+    <iframe id="videoFrame" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    <div class="comment">
+        <h2 style="color: aliceblue;">COMMENTS</h2>
+        <input class="post" type="text" placeholder="type"><button class="posted">post</button>
+        <div class="comment-section"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoId = urlParams.get("id");
+            const iframe = document.getElementById("videoFrame");
+
+            if (videoId) {
+
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                let a = JSON.parse(localStorage.getItem("a")) || [];
+                a.push({"vedio":videoId});
+                localStorage.setItem("a",JSON.stringify(a));
+                const c=document.querySelector(".posted");
+                const rooted=document.querySelector(".comment-section");
+                function displaycomment(){
+                    let v = JSON.parse(localStorage.getItem("v")) || [];
+                    
+                    v.forEach(element => {
+                        const ncard=document.createElement("div");
+                        ncard.className="user";
+                        ncard.innerHTML=`
+                        <p style="color:white">${element.message}</p>`
+                    
+                        rooted.appendChild(ncard);
+                        
+
+                        
+                    }); 
+                }
+                displaycomment();
+            
+                c.addEventListener("click",()=>{
+                    const input1=document.querySelector(".post").value;
+                    
+                    let v = JSON.parse(localStorage.getItem("v")) || [];
+                    v.push({"message":input1});
+                    localStorage.setItem("v",JSON.stringify(v));
+                    rooted.innerHTML=``;
+                    displaycomment();
+
+
+            
+                    // v.forEach((e)=>{
+                        
+
+                        
+                    //     const ncard=document.createElement("div");
+                    //     ncard.className="user";
+                    //     ncard.innerHTML=`
+                    //     <p style="color:white">${e.message}</p>`
+                    
+                    //     rooted.appendChild(ncard);
+                        
+                        
+
+                    // })
+                    // input1="";
+
+                })
+                
+
+
+
+
+                
+
+            } else {
+
+                document.body.innerHTML = "<h2>Video Not Found</h2>";
+            }
+        });
+        
+    </script>
+</body>
+</html>
